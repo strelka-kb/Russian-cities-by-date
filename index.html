@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>Map by time</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no,width=device-width' />
+    <script src='./scripts/mapbox-gl.js'></script>
+    <link href='./scripts/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body { 
+            margin:0; 
+            padding:0;
+        }
+        #map { 
+            position:absolute; 
+            top:10%; 
+            bottom:0; 
+            width:100%; 
+            margin-bottom: 5%;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+
+
+<style>
+
+@font-face {
+    font-family: strelka_head;
+    src: url('./Fonts/fugue_mono_KB.otf');
+}
+@font-face {
+    font-family: strelka_reg;
+    src: url('./Fonts/UniversLTCYR-65Bold.otf');
+}
+.mapboxgl-popup { 
+        max-width: 150px;
+        max-height: 10px;
+        font: 12px/20px strelka_reg;
+        font-size: 1vw;
+        text-align: center;
+    }
+.map-overlay {
+    display:inline-block;
+    position: absolute;
+    width: 100%;
+    top: 3%;
+    text-align: center;
+}
+
+.map-overlay .map-overlay-inner {
+    font: 25px/40px strelka_head;
+    font-size: 3vw;
+    background-color: #fff;
+    border-radius: 0px;
+    padding: 10px;
+}
+
+.map-overlay h1 {
+    font: 25px/40px strelka_head;
+    font-size: 5vw;
+    line-height: 24px;
+    display: block;
+    margin: 0 0 2%;
+    z-index: 100;
+    color: #278DAB;
+}
+
+h2 {
+    position:absolute; 
+    bottom: 1.5%;
+    width:100%; 
+    font: 20px/30px strelka_head;
+    font-size: 2vw;
+    color:'black';
+    z-index: 100;
+    text-align: center;
+    margin:3px 0px 0% 0;
+}
+ 
+
+h3 {
+    position:relative; 
+    bottom:3.7%;
+    right:10%;
+    width:20vw; height:2vw; 
+}
+.map-overlay input {
+    background-color: transparent;
+    display: inline-block;
+    width: 100%;
+    position: relative;
+    margin: 0 0 0;
+    cursor: ew-resize;
+    text-align: center;
+}
+img.phone {
+    display: none
+    
+}
+img.desc {
+    display: block;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+}
+@media screen and (max-width: 900px) {
+    .map-overlay h1 {
+        font: 15px/20px strelka_head;
+        font-size: 5vw;
+        line-height: 24px;
+        display: block;
+        margin: 0 0 2%;
+        text-align: center;
+        color: #278DAB;
+    }
+
+    h2 {
+        position:absolute; 
+        bottom:2.7%;
+        width:100%; 
+        font: 15px/20px strelka_head;
+        color:'black';
+        z-index: 100;
+        text-align: center;
+        display:inline-block;
+        margin:13px 0px 0% 0;
+    }
+
+    h3 {
+        position:absolute; 
+        margin-bottom:3.7%;
+        left:50%;
+        width:21px; height:2px;
+        z-index: 1000000;
+    }
+
+    #map { 
+            position:absolute; 
+            top:10%; 
+            bottom:0; 
+            width:100%; 
+            margin-bottom: 15%;
+            padding: 0;
+    }
+
+    .map-overlay .map-overlay-inner {
+    font: 25px/40px strelka_head;
+    font-size: 3vw;
+    background-color: #fff;
+    border-radius: 0px;
+    padding: 10px;
+    }
+
+    .mapboxgl-popup {
+        max-width: 150px;
+        max-height: 10px;
+        font: strelka_reg;
+        font-size: 1.8vw;
+        text-align: center;
+    }
+    
+    img.phone {
+        display: block;
+        width: 200px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 5px;
+    }
+    img.desc {
+        display: none
+    }
+@media screen and (max-width: 600px) {
+    #map { 
+            position:absolute; 
+            top:5%; 
+            bottom:0; 
+            width:100%; 
+            margin-bottom: 20%;
+            padding: 0;
+    }
+    h2 {
+        position:absolute; 
+        bottom:2.7%;
+        width:100%; 
+        font: 12px/17px strelka_head;
+        color:'black';
+        z-index: 100;
+        text-align: center;
+        display:inline-block;
+        margin:13px 0px 0% 0;
+    }
+    }
+}
+
+</style>
+
+<div id='map'></div> 
+<div class='map-overlay top'>
+    <div class='map-overlay-inner'>
+        <h1>ОСНОВАНИЕ ГОРОДОВ РОССИИ</h1>   
+        <label id='year_slider'></label>
+        <input id='slider' type='range' min='700' max='2017' step='1' value='700' />
+    </div>
+    
+</div>
+<script src='./scripts/d3.v3.min.js' charset='utf-8'></script>
+<script src="./scripts/script.js"></script>
+<h2>
+    Использованы данные 
+    <a href="https://ru.wikipedia.org/wiki/Список_городов_России" style='text-decoration: none; color:"black"'>
+        Wikipedia</a>, 
+    <a href="http://gis-lab.info/qa/rusbounds-rosreestr.html" style='text-decoration: none; color:"black"'>
+        Gis-Lab  <img src="./images/logo.jpg" alt="ph" class="phone" style='width: 200px;'>
+    </a>
+     
+</h2>
+<div><img src="./images/logo.jpg" width="210" class="desc" height="20" style="z-index:0; position:absolute;right: 1%; bottom:2.7%;z-index:1000000000"><div>
+
+
+
+</div>
+</div>  
+</div>
+</body>
+</html>
